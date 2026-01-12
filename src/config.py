@@ -29,7 +29,7 @@ class WeaviateConfig(BaseModel):
     startup_period: int = 5
 
     # Third-party API keys
-    cohere_api_key: str | None = None
+    voyageai_api_key: str | None = None
     openai_api_key: str | None = None
 
     @model_validator(mode="after")
@@ -124,11 +124,11 @@ def load_config_from_env() -> WeaviateConfig:
 
     # Build additional headers for third-party API keys
     additional_headers = {}
-    cohere_key = os.getenv("COHERE_API_KEY")
+    voyageai_key = os.getenv("VOYAGEAI_API_KEY")
     openai_key = os.getenv("OPENAI_API_KEY")
 
-    if cohere_key:
-        additional_headers["X-Cohere-Api-Key"] = cohere_key
+    if voyageai_key:
+        additional_headers["X-VoyageAI-Api-Key"] = voyageai_key
     if openai_key:
         additional_headers["X-OpenAI-Api-Key"] = openai_key
 
@@ -150,7 +150,7 @@ def load_config_from_env() -> WeaviateConfig:
             timeout_insert=int(os.getenv("WEAVIATE_TIMEOUT_INSERT", "120")),
             startup_period=int(os.getenv("WEAVIATE_STARTUP_PERIOD", "5")),
             additional_headers=additional_headers,
-            cohere_api_key=cohere_key,
+            voyageai_api_key=voyageai_key,
             openai_api_key=openai_key,
         )
     except ValidationError as e:

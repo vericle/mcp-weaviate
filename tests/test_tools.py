@@ -82,7 +82,7 @@ class TestGetConfigTool:
             connection_type="cloud",
             cluster_url="https://test.weaviate.network",
             api_key="secret-api-key",
-            cohere_api_key="secret-cohere-key",
+            voyageai_api_key="secret-voyageai-key",
             additional_headers={"X-Test": "value"},
         )
 
@@ -95,7 +95,7 @@ class TestGetConfigTool:
         assert result["host"] is None
         assert result["port"] is None
         assert result["grpc_port"] is None
-        assert result["cohere_api_key"] == "***"  # Masked
+        assert result["voyageai_api_key"] == "***"  # Masked
         assert result["additional_headers"] == {"X-Test": "***"}  # Masked
 
 

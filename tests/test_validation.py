@@ -205,11 +205,11 @@ class TestEdgeCases:
             host="localhost",
             port=8080,
             grpc_port=50051,
-            cohere_api_key=None,
+            voyageai_api_key=None,
             openai_api_key=None,
         )
 
-        assert config.cohere_api_key is None
+        assert config.voyageai_api_key is None
         assert config.openai_api_key is None
 
     def test_empty_string_values(self):
@@ -220,12 +220,12 @@ class TestEdgeCases:
             host="localhost",
             port=8080,
             grpc_port=50051,
-            cohere_api_key="",
+            voyageai_api_key="",
             openai_api_key="",
         )
 
         # Empty strings are preserved (not converted to None)
-        assert config.cohere_api_key == ""
+        assert config.voyageai_api_key == ""
         assert config.openai_api_key == ""
 
     def test_whitespace_in_string_fields(self):
@@ -332,7 +332,7 @@ class TestConfigConsistency:
             cluster_url="https://test.weaviate.network",
             api_key="secret-key",
             openai_api_key="openai-secret",
-            cohere_api_key=None,
+            voyageai_api_key=None,
         )
 
         filtered1 = config.model_dump_filtered()
@@ -347,7 +347,7 @@ class TestConfigConsistency:
         # Note: model_dump_filtered currently only masks the main api_key,
         # not other API keys like openai_api_key
         assert filtered1["openai_api_key"] == "openai-secret"
-        assert "cohere_api_key" not in filtered1  # None values excluded
+        assert "voyageai_api_key" not in filtered1  # None values excluded
 
         # Should preserve non-secret values
         assert filtered1["connection_type"] == "cloud"
@@ -364,7 +364,7 @@ class TestConfigConsistency:
             grpc_port=50051,
             additional_headers=custom_headers,
             openai_api_key="openai-key",
-            cohere_api_key="cohere-key",
+            voyageai_api_key="voyageai-key",
         )
 
         # additional_headers should only contain what was explicitly set
@@ -372,4 +372,4 @@ class TestConfigConsistency:
 
         # API keys should be stored separately
         assert config.openai_api_key == "openai-key"
-        assert config.cohere_api_key == "cohere-key"
+        assert config.voyageai_api_key == "voyageai-key"

@@ -39,7 +39,7 @@ uvx mcp-weaviate --help
 - Weaviate instance (local or cloud)
 - API keys for embeddings:
   - OpenAI API key (for OpenAI embeddings)
-  - Cohere API key (optional, for Cohere embeddings)
+  - VoyageAI API key (optional, for VoyageAI embeddings)
 
 ## Configuration
 
@@ -101,7 +101,7 @@ Add the Weaviate MCP server to your MCP settings file (typically `claude_desktop
 | `--cluster-url` | Weaviate Cloud Services URL | *required for cloud* | WEAVIATE_CLUSTER_URL |
 | `--api-key` | API key for authentication | *required for cloud* | WEAVIATE_API_KEY |
 | `--openai-api-key` | OpenAI API key for embeddings | - | OPENAI_API_KEY |
-| `--cohere-api-key` | Cohere API key for embeddings | - | COHERE_API_KEY |
+| `--voyageai-api-key` | VoyageAI API key for embeddings | - | VOYAGEAI_API_KEY |
 | `--timeout-init` | Initialization timeout (seconds) | 30 | - |
 | `--timeout-query` | Query timeout (seconds) | 60 | - |
 | `--timeout-insert` | Insert timeout (seconds) | 120 | - |

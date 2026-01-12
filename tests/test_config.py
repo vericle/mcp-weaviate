@@ -159,12 +159,12 @@ class TestWeaviateConfig:
             cluster_url="https://test.weaviate.network",
             api_key="weaviate-key",
             openai_api_key="openai-key",
-            cohere_api_key="cohere-key",
+            voyageai_api_key="voyageai-key",
         )
 
         assert config.api_key == "weaviate-key"
         assert config.openai_api_key == "openai-key"
-        assert config.cohere_api_key == "cohere-key"
+        assert config.voyageai_api_key == "voyageai-key"
 
     def test_model_dump_filtered_masks_api_key(self):
         """Test that model_dump_filtered masks API keys."""
@@ -187,7 +187,7 @@ class TestWeaviateConfig:
         filtered = config.model_dump_filtered()
         assert "cluster_url" not in filtered
         assert "api_key" not in filtered
-        assert "cohere_api_key" not in filtered
+        assert "voyageai_api_key" not in filtered
         assert "openai_api_key" not in filtered
 
 
@@ -234,18 +234,18 @@ class TestLoadConfigFromEnv:
             "WEAVIATE_PORT": "8080",
             "WEAVIATE_GRPC_PORT": "50051",
             "OPENAI_API_KEY": "openai-test-key",
-            "COHERE_API_KEY": "cohere-test-key",
+            "VOYAGEAI_API_KEY": "voyageai-test-key",
         }
 
         with patch.dict(os.environ, env_vars, clear=False):
             config = load_config_from_env()
 
             assert config.openai_api_key == "openai-test-key"
-            assert config.cohere_api_key == "cohere-test-key"
+            assert config.voyageai_api_key == "voyageai-test-key"
             assert "X-OpenAI-Api-Key" in config.additional_headers
-            assert "X-Cohere-Api-Key" in config.additional_headers
+            assert "X-VoyageAI-Api-Key" in config.additional_headers
             assert config.additional_headers["X-OpenAI-Api-Key"] == "openai-test-key"
-            assert config.additional_headers["X-Cohere-Api-Key"] == "cohere-test-key"
+            assert config.additional_headers["X-VoyageAI-Api-Key"] == "voyageai-test-key"
 
     def test_load_config_with_custom_timeouts(self):
         """Test loading configuration with custom timeout values."""

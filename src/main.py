@@ -50,7 +50,7 @@ from src.tools import register_tools
     "--timeout-insert", default=120, type=int, help="Insert timeout in seconds"
 )
 @click.option(
-    "--cohere-api-key", envvar="COHERE_API_KEY", help="Cohere API key for embeddings"
+    "--voyageai-api-key", envvar="VOYAGEAI_API_KEY", help="VoyageAI API key for embeddings"
 )
 @click.option(
     "--openai-api-key", envvar="OPENAI_API_KEY", help="OpenAI API key for embeddings"
@@ -68,15 +68,15 @@ def main(
     timeout_init: int,
     timeout_query: int,
     timeout_insert: int,
-    cohere_api_key: str | None,
+    voyageai_api_key: str | None,
     openai_api_key: str | None,
 ) -> None:
     """Weaviate MCP Server - Interact with Weaviate via MCP"""
 
     # Build additional headers for third-party API keys
     additional_headers = {}
-    if cohere_api_key:
-        additional_headers["X-Cohere-Api-Key"] = cohere_api_key
+    if voyageai_api_key:
+        additional_headers["X-VoyageAI-Api-Key"] = voyageai_api_key
     if openai_api_key:
         additional_headers["X-OpenAI-Api-Key"] = openai_api_key
 
@@ -92,15 +92,15 @@ def main(
         timeout_query=timeout_query,
         timeout_insert=timeout_insert,
         additional_headers=additional_headers,
-        cohere_api_key=cohere_api_key,
+        voyageai_api_key=voyageai_api_key,
         openai_api_key=openai_api_key,
     )
 
     # Note: Validation is now handled in WeaviateConfig constructor
 
-    # Initialize FastMCP server with stateless_http for remote deployments
+    # Initialize FastMCP server
     use_stateless = transport == "streamable-http"
-    mcp = FastMCP("Weaviate MCP Server", stateless_http=use_stateless)
+    mcp = FastMCP("Weaviate MCP Server")
 
     # Register tools with the server
     register_tools(mcp, config)
@@ -114,9 +114,15 @@ def main(
 
     # Run the server with configured transport
     if transport == "stdio":
-        mcp.run()
+        mcp.run(show_banner=False)
     else:
-        mcp.run(transport=transport, host=http_host, port=http_port)
+        mcp.run(
+            transport=transport,
+            host=http_host,
+            port=http_port,
+            stateless_http=use_stateless,
+            show_banner=False,
+        )
 
 
 if __name__ == "__main__":

@@ -47,7 +47,7 @@ def register_tools(mcp: Any, config: WeaviateConfig) -> None:
             "timeout_query": config.timeout_query,
             "timeout_insert": config.timeout_insert,
             "startup_period": config.startup_period,
-            "cohere_api_key": "***" if config.cohere_api_key else None,
+            "voyageai_api_key": "***" if config.voyageai_api_key else None,
             "openai_api_key": "***" if config.openai_api_key else None,
             "additional_headers": dict.fromkeys(config.additional_headers.keys(), "***")
             if config.additional_headers

@@ -44,7 +44,7 @@ def config_with_api_keys():
         cluster_url="https://test.weaviate.network",
         api_key="weaviate-key",
         openai_api_key="openai-test-key",
-        cohere_api_key="cohere-test-key",
+        voyageai_api_key="voyageai-test-key",
         additional_headers={"X-Custom-Header": "custom-value"},
     )
 
@@ -153,7 +153,7 @@ def env_vars_cloud():
         "WEAVIATE_CLUSTER_URL": "https://env-test.weaviate.network",
         "WEAVIATE_API_KEY": "env-api-key",
         "OPENAI_API_KEY": "env-openai-key",
-        "COHERE_API_KEY": "env-cohere-key",
+        "VOYAGEAI_API_KEY": "env-voyageai-key",
     }
 
 
@@ -170,7 +170,7 @@ def clean_env():
         "WEAVIATE_CLUSTER_URL",
         "WEAVIATE_API_KEY",
         "OPENAI_API_KEY",
-        "COHERE_API_KEY",
+        "VOYAGEAI_API_KEY",
         "WEAVIATE_TIMEOUT_INIT",
         "WEAVIATE_TIMEOUT_QUERY",
         "WEAVIATE_TIMEOUT_INSERT",
